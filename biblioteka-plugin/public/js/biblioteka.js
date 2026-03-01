@@ -7,25 +7,69 @@
         var popupContent = document.querySelector('.biblioteka-popup-content');
         var closeBtn = document.querySelector('.biblioteka-popup-close');
         var bookItems = document.querySelectorAll('.biblioteka-book-item');
+        var categories = document.querySelectorAll('.biblioteka-category');
+
+        // Search elements.
+        var searchTitle = document.getElementById('biblioteka-search-title');
+        var searchAuthor = document.getElementById('biblioteka-search-author');
+        var searchCategory = document.getElementById('biblioteka-search-category');
+        var noResults = document.querySelector('.biblioteka-no-results');
 
         // Update mode on resize.
         window.addEventListener('resize', function () {
             isDesktop = window.innerWidth > 768;
-            // Close any open mobile details when switching to desktop.
             if (isDesktop) {
                 bookItems.forEach(function (item) {
                     item.classList.remove('open');
                     var details = item.querySelector('.biblioteka-book-details');
-                    if (details) {
-                        details.style.display = 'none';
-                    }
+                    if (details) details.style.display = 'none';
                 });
             }
-            // Hide popup when switching to mobile.
             if (!isDesktop && overlay) {
                 overlay.style.display = 'none';
             }
         });
+
+        // Search / filter logic.
+        function filterBooks() {
+            var titleQuery = (searchTitle ? searchTitle.value : '').toLowerCase().trim();
+            var authorQuery = (searchAuthor ? searchAuthor.value : '').toLowerCase().trim();
+            var categoryQuery = searchCategory ? searchCategory.value : '';
+
+            var totalVisible = 0;
+
+            categories.forEach(function (catSection) {
+                var items = catSection.querySelectorAll('.biblioteka-book-item');
+                var visibleInCategory = 0;
+
+                items.forEach(function (item) {
+                    var matchTitle = !titleQuery || item.getAttribute('data-title').indexOf(titleQuery) !== -1;
+                    var matchAuthor = !authorQuery || item.getAttribute('data-author').indexOf(authorQuery) !== -1;
+                    var matchCategory = !categoryQuery || item.getAttribute('data-category') === categoryQuery;
+
+                    if (matchTitle && matchAuthor && matchCategory) {
+                        item.style.display = '';
+                        visibleInCategory++;
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('open');
+                        var details = item.querySelector('.biblioteka-book-details');
+                        if (details) details.style.display = 'none';
+                    }
+                });
+
+                catSection.style.display = visibleInCategory > 0 ? '' : 'none';
+                totalVisible += visibleInCategory;
+            });
+
+            if (noResults) {
+                noResults.style.display = totalVisible === 0 ? 'block' : 'none';
+            }
+        }
+
+        if (searchTitle) searchTitle.addEventListener('input', filterBooks);
+        if (searchAuthor) searchAuthor.addEventListener('input', filterBooks);
+        if (searchCategory) searchCategory.addEventListener('change', filterBooks);
 
         // Handle clicks on book headers.
         bookItems.forEach(function (item) {
@@ -50,14 +94,10 @@
 
             popupContent.innerHTML = '';
 
-            // Build popup content.
             var title = item.querySelector('.biblioteka-book-title');
-            var titleHtml = '<div class="biblioteka-book-info"><h4>' +
-                escapeHtml(title ? title.textContent : '') + '</h4>';
 
             // Clone info from the hidden details.
             var infoClone = details.cloneNode(true);
-            popupContent.innerHTML = '';
 
             // Add title as heading inside info.
             var infoDiv = infoClone.querySelector('.biblioteka-book-info');
@@ -78,14 +118,11 @@
 
             var isOpen = item.classList.contains('open');
 
-            // Close all others.
             bookItems.forEach(function (other) {
                 if (other !== item) {
                     other.classList.remove('open');
                     var otherDetails = other.querySelector('.biblioteka-book-details');
-                    if (otherDetails) {
-                        otherDetails.style.display = 'none';
-                    }
+                    if (otherDetails) otherDetails.style.display = 'none';
                 }
             });
 
@@ -107,23 +144,14 @@
 
         if (overlay) {
             overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) {
-                    overlay.style.display = 'none';
-                }
+                if (e.target === overlay) overlay.style.display = 'none';
             });
         }
 
-        // Close popup on Escape key.
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && overlay && overlay.style.display !== 'none') {
                 overlay.style.display = 'none';
             }
         });
-
-        function escapeHtml(str) {
-            var div = document.createElement('div');
-            div.appendChild(document.createTextNode(str));
-            return div.innerHTML;
-        }
     });
 })();

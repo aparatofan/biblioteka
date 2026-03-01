@@ -57,15 +57,44 @@ function biblioteka_shortcode( $atts ) {
         $grouped[ $book->category ][] = $book;
     }
 
+    $categories = biblioteka_get_categories();
+
     ob_start();
     ?>
     <div class="biblioteka-library">
+
+        <!-- Search / Filter Bar -->
+        <div class="biblioteka-search">
+            <div class="biblioteka-search-field">
+                <label for="biblioteka-search-title">Title</label>
+                <input type="text" id="biblioteka-search-title" placeholder="Search by title...">
+            </div>
+            <div class="biblioteka-search-field">
+                <label for="biblioteka-search-author">Author</label>
+                <input type="text" id="biblioteka-search-author" placeholder="Search by author...">
+            </div>
+            <div class="biblioteka-search-field">
+                <label for="biblioteka-search-category">Category</label>
+                <select id="biblioteka-search-category">
+                    <option value="">All Categories</option>
+                    <?php foreach ( $categories as $cat ) : ?>
+                        <option value="<?php echo esc_attr( $cat ); ?>"><?php echo esc_html( $cat ); ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="biblioteka-no-results" style="display:none;">No books match your search.</div>
+
         <?php foreach ( $grouped as $category => $cat_books ) : ?>
             <div class="biblioteka-category">
                 <h3 class="biblioteka-category-title"><?php echo esc_html( $category ); ?></h3>
                 <div class="biblioteka-book-list">
                     <?php foreach ( $cat_books as $book ) : ?>
-                        <div class="biblioteka-book-item" data-book-id="<?php echo esc_attr( $book->id ); ?>">
+                        <div class="biblioteka-book-item" data-book-id="<?php echo esc_attr( $book->id ); ?>"
+                             data-title="<?php echo esc_attr( mb_strtolower( $book->title ) ); ?>"
+                             data-author="<?php echo esc_attr( mb_strtolower( $book->author ) ); ?>"
+                             data-category="<?php echo esc_attr( $book->category ); ?>">
                             <div class="biblioteka-book-header">
                                 <span class="biblioteka-book-title"><?php echo esc_html( $book->title ); ?></span>
                                 <span class="biblioteka-book-arrow">&#9662;</span>
@@ -102,6 +131,7 @@ function biblioteka_shortcode( $atts ) {
     <div class="biblioteka-popup-overlay" style="display:none;">
         <div class="biblioteka-popup">
             <button class="biblioteka-popup-close">&times;</button>
+            <div class="biblioteka-popup-header">CZYTAJ M&#260;DRZE</div>
             <div class="biblioteka-popup-content"></div>
         </div>
     </div>
