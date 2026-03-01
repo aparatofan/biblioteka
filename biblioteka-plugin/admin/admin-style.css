@@ -1,0 +1,45 @@
+.biblioteka-admin .biblioteka-form-section,
+.biblioteka-admin .biblioteka-import-section,
+.biblioteka-admin .biblioteka-list-section,
+.biblioteka-admin .biblioteka-info-section {
+    background: #fff;
+    padding: 20px;
+    margin: 15px 0;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+}
+
+.biblioteka-admin .biblioteka-form-section h2,
+.biblioteka-admin .biblioteka-import-section h2,
+.biblioteka-admin .biblioteka-list-section h2,
+.biblioteka-admin .biblioteka-info-section h2 {
+    margin-top: 0;
+    color: #008080;
+}
+
+.biblioteka-image-preview {
+    margin-top: 10px;
+}
+
+.biblioteka-image-preview img {
+    max-width: 150px;
+    max-height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.biblioteka-filter {
+    margin-bottom: 15px;
+}
+
+.biblioteka-filter select {
+    margin-left: 5px;
+}
+
+.biblioteka-info-section code {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f0f0f0;
+    font-size: 14px;
+    border-radius: 3px;
+}
