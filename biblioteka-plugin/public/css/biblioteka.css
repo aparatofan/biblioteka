@@ -165,6 +165,25 @@
     text-decoration: underline;
 }
 
+.biblioteka-bookstore-link a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #fff;
+    background: #008080;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    letter-spacing: 0.03em;
+    transition: background 0.2s ease;
+}
+
+.biblioteka-bookstore-link a:hover {
+    background: #006666;
+    text-decoration: none;
+}
+
 /* =============================================
    Desktop Popup
    ============================================= */
@@ -266,6 +285,25 @@
 }
 
 .biblioteka-popup-content .biblioteka-book-link a:hover {
+    background: #006666;
+    text-decoration: none;
+}
+
+.biblioteka-popup-content .biblioteka-bookstore-link a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #fff;
+    background: #008080;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9em;
+    letter-spacing: 0.03em;
+    transition: background 0.2s ease;
+}
+
+.biblioteka-popup-content .biblioteka-bookstore-link a:hover {
     background: #006666;
     text-decoration: none;
 }
