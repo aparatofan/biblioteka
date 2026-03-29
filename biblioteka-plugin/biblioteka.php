@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Biblioteka
  * Description: A book library plugin for WordPress. Add books with title, author, category, cover image, and related post URL.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Czytaj Mądrze
  * Text Domain: biblioteka
  */
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'BIBLIOTEKA_VERSION', '1.1.0' );
+define( 'BIBLIOTEKA_VERSION', '1.2.0' );
 define( 'BIBLIOTEKA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BIBLIOTEKA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -26,6 +26,7 @@ function biblioteka_activate() {
     $sql = "CREATE TABLE $table_name (
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         title VARCHAR(500) NOT NULL,
+        description TEXT DEFAULT '',
         author VARCHAR(500) NOT NULL,
         category VARCHAR(200) NOT NULL,
         image_url VARCHAR(1000) DEFAULT '',
