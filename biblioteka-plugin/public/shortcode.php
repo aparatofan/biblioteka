@@ -108,12 +108,22 @@ function biblioteka_shortcode( $atts ) {
                                         </div>
                                     <?php endif; ?>
                                     <div class="biblioteka-book-info">
+                                        <?php if ( $book->description ) : ?>
+                                            <p class="biblioteka-book-description"><?php echo nl2br( esc_html( $book->description ) ); ?></p>
+                                        <?php endif; ?>
                                         <p class="biblioteka-book-author"><strong>Author:</strong> <?php echo esc_html( $book->author ); ?></p>
                                         <p class="biblioteka-book-cat"><strong>Category:</strong> <?php echo esc_html( $book->category ); ?></p>
                                         <?php if ( $book->related_post_url ) : ?>
                                             <p class="biblioteka-book-link">
                                                 <a href="<?php echo esc_url( $book->related_post_url ); ?>" target="_blank" rel="noopener noreferrer">
                                                     Read related post &rarr;
+                                                </a>
+                                            </p>
+                                        <?php endif; ?>
+                                        <?php if ( $book->bookstore_url ) : ?>
+                                            <p class="biblioteka-bookstore-link">
+                                                <a href="<?php echo esc_url( $book->bookstore_url ); ?>" target="_blank" rel="noopener noreferrer">
+                                                    ZOBACZ W KSIĘGARNI &rarr;
                                                 </a>
                                             </p>
                                         <?php endif; ?>
@@ -131,7 +141,7 @@ function biblioteka_shortcode( $atts ) {
     <div class="biblioteka-popup-overlay" style="display:none;">
         <div class="biblioteka-popup">
             <button class="biblioteka-popup-close">&times;</button>
-            <div class="biblioteka-popup-header">CZYTAJ M&#260;DRZE</div>
+            <div class="biblioteka-popup-header"><?php echo esc_html( "CZYTAJ M\xC4\x84DRZE" ); ?></div>
             <div class="biblioteka-popup-content"></div>
         </div>
     </div>

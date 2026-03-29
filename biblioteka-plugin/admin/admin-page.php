@@ -72,12 +72,14 @@ function biblioteka_handle_actions() {
 
         $data = array(
             'title'            => sanitize_text_field( $_POST['book_title'] ?? '' ),
+            'description'      => sanitize_textarea_field( $_POST['book_description'] ?? '' ),
             'author'           => sanitize_text_field( $_POST['book_author'] ?? '' ),
             'category'         => sanitize_text_field( $_POST['book_category'] ?? '' ),
             'image_url'        => esc_url_raw( $_POST['book_image_url'] ?? '' ),
             'related_post_url' => esc_url_raw( $_POST['book_related_post_url'] ?? '' ),
+            'bookstore_url'    => esc_url_raw( $_POST['book_bookstore_url'] ?? '' ),
         );
-        $format = array( '%s', '%s', '%s', '%s', '%s' );
+        $format = array( '%s', '%s', '%s', '%s', '%s', '%s', '%s' );
 
         $edit_id = intval( $_POST['book_id'] ?? 0 );
         if ( $edit_id > 0 ) {
@@ -189,6 +191,10 @@ function biblioteka_admin_page() {
                                    value="<?php echo $editing ? esc_attr( $edit_book->title ) : ''; ?>"></td>
                     </tr>
                     <tr>
+                        <th><label for="book_description">Description</label></th>
+                        <td><textarea id="book_description" name="book_description" class="large-text" rows="4"><?php echo $editing ? esc_textarea( $edit_book->description ) : ''; ?></textarea></td>
+                    </tr>
+                    <tr>
                         <th><label for="book_author">Author</label></th>
                         <td><input type="text" id="book_author" name="book_author" class="regular-text" required
                                    value="<?php echo $editing ? esc_attr( $edit_book->author ) : ''; ?>"></td>
@@ -224,6 +230,11 @@ function biblioteka_admin_page() {
                         <th><label for="book_related_post_url">Related Post URL</label></th>
                         <td><input type="url" id="book_related_post_url" name="book_related_post_url" class="regular-text"
                                    value="<?php echo $editing ? esc_attr( $edit_book->related_post_url ) : ''; ?>"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="book_bookstore_url">Bookstore URL</label></th>
+                        <td><input type="url" id="book_bookstore_url" name="book_bookstore_url" class="regular-text"
+                                   value="<?php echo $editing ? esc_attr( $edit_book->bookstore_url ) : ''; ?>"></td>
                     </tr>
                 </table>
 
@@ -271,17 +282,18 @@ function biblioteka_admin_page() {
                 <thead>
                     <tr>
                         <th style="width:5%">ID</th>
-                        <th style="width:25%">Title</th>
-                        <th style="width:20%">Author</th>
-                        <th style="width:20%">Category</th>
-                        <th style="width:10%">Image</th>
+                        <th style="width:22%">Title</th>
+                        <th style="width:15%">Author</th>
+                        <th style="width:15%">Category</th>
+                        <th style="width:8%">Image</th>
                         <th style="width:10%">Post</th>
+                        <th style="width:10%">Bookstore</th>
                         <th style="width:10%">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if ( empty( $books ) ) : ?>
-                        <tr><td colspan="7">No books found.</td></tr>
+                        <tr><td colspan="8">No books found.</td></tr>
                     <?php else : ?>
                         <?php foreach ( $books as $book ) : ?>
                             <tr>
@@ -299,6 +311,13 @@ function biblioteka_admin_page() {
                                 <td>
                                     <?php if ( $book->related_post_url ) : ?>
                                         <a href="<?php echo esc_url( $book->related_post_url ); ?>" target="_blank">View</a>
+                                    <?php else : ?>
+                                        —
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ( $book->bookstore_url ) : ?>
+                                        <a href="<?php echo esc_url( $book->bookstore_url ); ?>" target="_blank">View</a>
                                     <?php else : ?>
                                         —
                                     <?php endif; ?>
