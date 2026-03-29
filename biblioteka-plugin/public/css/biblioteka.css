@@ -276,8 +276,7 @@
 }
 
 .biblioteka-popup-content .biblioteka-book-image img {
-    width: 220px;
-    max-width: 100%;
+    width: 100%;
 }
 
 .biblioteka-popup-content .biblioteka-book-info h4 {
