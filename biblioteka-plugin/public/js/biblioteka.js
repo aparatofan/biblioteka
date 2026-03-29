@@ -99,12 +99,22 @@
             // Clone info from the hidden details.
             var infoClone = details.cloneNode(true);
 
-            // Add title as heading inside info.
+            // Move image before info so it appears on top.
+            var imageDiv = infoClone.querySelector('.biblioteka-book-image');
             var infoDiv = infoClone.querySelector('.biblioteka-book-info');
+
+            // Add title as heading inside info.
             if (infoDiv) {
                 var h4 = document.createElement('h4');
                 h4.textContent = title ? title.textContent : '';
                 infoDiv.insertBefore(h4, infoDiv.firstChild);
+            }
+
+            // Place image first (above title), then info below.
+            if (imageDiv && infoDiv) {
+                infoClone.innerHTML = '';
+                infoClone.appendChild(imageDiv);
+                infoClone.appendChild(infoDiv);
             }
 
             popupContent.appendChild(infoClone);
