@@ -72,13 +72,14 @@ function biblioteka_handle_actions() {
 
         $data = array(
             'title'            => sanitize_text_field( $_POST['book_title'] ?? '' ),
+            'description'      => sanitize_textarea_field( $_POST['book_description'] ?? '' ),
             'author'           => sanitize_text_field( $_POST['book_author'] ?? '' ),
             'category'         => sanitize_text_field( $_POST['book_category'] ?? '' ),
             'image_url'        => esc_url_raw( $_POST['book_image_url'] ?? '' ),
             'related_post_url' => esc_url_raw( $_POST['book_related_post_url'] ?? '' ),
             'bookstore_url'    => esc_url_raw( $_POST['book_bookstore_url'] ?? '' ),
         );
-        $format = array( '%s', '%s', '%s', '%s', '%s', '%s' );
+        $format = array( '%s', '%s', '%s', '%s', '%s', '%s', '%s' );
 
         $edit_id = intval( $_POST['book_id'] ?? 0 );
         if ( $edit_id > 0 ) {
@@ -188,6 +189,10 @@ function biblioteka_admin_page() {
                         <th><label for="book_title">Title</label></th>
                         <td><input type="text" id="book_title" name="book_title" class="regular-text" required
                                    value="<?php echo $editing ? esc_attr( $edit_book->title ) : ''; ?>"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="book_description">Description</label></th>
+                        <td><textarea id="book_description" name="book_description" class="large-text" rows="4"><?php echo $editing ? esc_textarea( $edit_book->description ) : ''; ?></textarea></td>
                     </tr>
                     <tr>
                         <th><label for="book_author">Author</label></th>

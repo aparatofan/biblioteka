@@ -108,6 +108,9 @@ function biblioteka_shortcode( $atts ) {
                                         </div>
                                     <?php endif; ?>
                                     <div class="biblioteka-book-info">
+                                        <?php if ( $book->description ) : ?>
+                                            <p class="biblioteka-book-description"><?php echo nl2br( esc_html( $book->description ) ); ?></p>
+                                        <?php endif; ?>
                                         <p class="biblioteka-book-author"><strong>Author:</strong> <?php echo esc_html( $book->author ); ?></p>
                                         <p class="biblioteka-book-cat"><strong>Category:</strong> <?php echo esc_html( $book->category ); ?></p>
                                         <?php if ( $book->related_post_url ) : ?>
@@ -138,7 +141,7 @@ function biblioteka_shortcode( $atts ) {
     <div class="biblioteka-popup-overlay" style="display:none;">
         <div class="biblioteka-popup">
             <button class="biblioteka-popup-close">&times;</button>
-            <div class="biblioteka-popup-header">CZYTAJ MĄDRZE</div>
+            <div class="biblioteka-popup-header"><?php echo esc_html( "CZYTAJ M\xC4\x84DRZE" ); ?></div>
             <div class="biblioteka-popup-content"></div>
         </div>
     </div>
