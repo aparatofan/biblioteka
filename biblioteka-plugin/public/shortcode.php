@@ -117,6 +117,13 @@ function biblioteka_shortcode( $atts ) {
                                                 </a>
                                             </p>
                                         <?php endif; ?>
+                                        <?php if ( $book->bookstore_url ) : ?>
+                                            <p class="biblioteka-bookstore-link">
+                                                <a href="<?php echo esc_url( $book->bookstore_url ); ?>" target="_blank" rel="noopener noreferrer">
+                                                    ZOBACZ W KSIĘGARNI &rarr;
+                                                </a>
+                                            </p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +138,7 @@ function biblioteka_shortcode( $atts ) {
     <div class="biblioteka-popup-overlay" style="display:none;">
         <div class="biblioteka-popup">
             <button class="biblioteka-popup-close">&times;</button>
-            <div class="biblioteka-popup-header">CZYTAJ M&#260;DRZE</div>
+            <div class="biblioteka-popup-header">CZYTAJ MĄDRZE</div>
             <div class="biblioteka-popup-content"></div>
         </div>
     </div>
